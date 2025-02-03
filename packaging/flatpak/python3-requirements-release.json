@@ -1,0 +1,34 @@
+{
+    "name": "python3-requirements-release",
+    "buildsystem": "simple",
+    "build-commands": [],
+    "modules": [
+        {
+            "name": "python3-pyside2",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"pyside2\" --no-build-isolation"
+            ],
+            "sources": []
+        },
+        {
+            "name": "python3-concurrent-log-handler",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"concurrent-log-handler\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/2e/44/33e92943e47067c34c098cddd6b3114a7aae2e684a5e5081a2bf63c12a7b/concurrent_log_handler-0.9.25-py3-none-any.whl",
+                    "sha256": "157bee12914aa2a72246d1d0641ce07c1aa7a55faa3322bed02f21e60395eb82"
+                },
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/3d/4c/4cb6bb4061910ac74c444be76e7d17dba97d9057030cca2f96947c3f7a0f/portalocker-3.0.0-py3-none-any.whl",
+                    "sha256": "211916b539a0dc3c128a3d9e86893ecfefec5379c4ff684e798f0a00f99db406"
+                }
+            ]
+        }
+    ]
+}

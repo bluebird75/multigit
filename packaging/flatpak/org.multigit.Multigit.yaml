@@ -1,0 +1,35 @@
+id: org.multigit.Multigit
+runtime: org.kde.Platform
+runtime-version: '5.15-24.08'
+sdk: org.kde.Sdk
+command: multigit
+
+
+modules:
+  - python3-requirements-release.json
+  
+#   - name: multigit
+#     buildsystem: simple
+#     build-commands:
+#       - install -Dm755 ../../multigit.py /app/bin/multigit
+# 
+#     sources:
+#       - type: file
+#         path: use_git.py
+
+
+finish-args:
+  # Qt
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+
+  # Ability to launch programs on the host
+  - --talk-name=org.freedesktop.Flatpak
+
+  # Specific to multigit, to check a file's presence
+  - --filesystem=/opt/sublime_merge/sublime_merge:ro
+
+
+
