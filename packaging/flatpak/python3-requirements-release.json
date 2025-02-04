@@ -9,7 +9,19 @@
             "build-commands": [
                 "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"pyside2\" --no-build-isolation"
             ],
-            "sources": []
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/c2/9a/78ca8bada6cf4d2798e0c823c025c590517d74445837f4eb50bfddce8737/PySide2-5.15.2.1-5.15.2-cp35.cp36.cp37.cp38.cp39.cp310-abi3-manylinux1_x86_64.whl",
+                    "sha256": "23886c6391ebd916e835fa1b5ae66938048504fd3a2934ae3189a96cd5ac0b46"
+                },
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/a6/0e/c1953bb08f45e0f1703e7dc153e9c94ba3042c282ebcd94cada385a9cdb3/shiboken2-5.15.2.1-5.15.2-cp35.cp36.cp37.cp38.cp39.cp310-abi3-manylinux1_x86_64.whl",
+                    "sha256": "63debfcc531b6a2b4985aa9b71433d2ad3bac542acffc729cc0ecaa3854390c0"
+                }
+                
+            ]
         },
         {
             "name": "python3-concurrent-log-handler",
