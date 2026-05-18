@@ -1,5 +1,5 @@
 name: multigit
-base: core22
+base: core24
 version: '1.8.0'
 summary: Graphical tool for projects with multiple git repositories
 description: |
