@@ -8,8 +8,8 @@ description: |
   It allows you to view the status of all your repositories at once,
   and perform common git operations on multiple repositories simultaneously.
 
-grade: stable
-confinement: classic
+grade: devel
+confinement: devmode
 
 layout:
   /usr/share/icons:
