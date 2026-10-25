@@ -68,7 +68,14 @@ jobs:
       - name: Build snap package in devmode
         run: |
           cd packaging/snap
-          snapcraft pack --destructive-mode
+          if ! snapcraft pack --destructive-mode; then
+            log_file=$(ls -t ~/.local/state/snapcraft/log/snapcraft-*.log 2>/dev/null | head -n 1)
+            if [ -n "$log_file" ]; then
+              echo "Snapcraft log: $log_file"
+              tail -n 100 "$log_file"
+            fi
+            exit 1
+          fi
 
       - name: Upload snap artifact
         uses: actions/upload-artifact@v4
