@@ -10,6 +10,7 @@ PROJECT_ROOT="$( cd "$SCRIPT_DIR/../.." && pwd )"
 
 echo "--- Building Snap ---"
 cd "$PROJECT_ROOT"
+bash "$SCRIPT_DIR/prepare-source.sh"
 # Run snapcraft pointing to the config in packaging/snap
 # We use --destructive-mode if you are in a container, but default to standard behavior
 snapcraft --project-dir "$SCRIPT_DIR"

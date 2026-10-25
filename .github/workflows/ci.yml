@@ -67,8 +67,8 @@ jobs:
 
       - name: Build snap with LXD
         run: |
+          bash packaging/snap/prepare-source.sh
           cd packaging/snap
-          snapcraft pack
           if ! snapcraft pack; then
             log_file=$(ls -t ~/.local/state/snapcraft/log/snapcraft-*.log 2>/dev/null | head -n 1)
             if [ -n "$log_file" ]; then
