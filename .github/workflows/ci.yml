@@ -66,7 +66,17 @@ jobs:
         run: sudo snap install snapcraft --classic
 
       - name: Build snap with LXD
-        run: snapcraft --project-dir packaging/snap pack
+        run: |
+          cd packaging/snap
+          snapcraft --project-dir packaging/snap pack
+          if ! snapcraft pack; then
+            log_file=$(ls -t ~/.local/state/snapcraft/log/snapcraft-*.log 2>/dev/null | head -n 1)
+            if [ -n "$log_file" ]; then
+              echo "Snapcraft log: $log_file"
+              tail -n 200 "$log_file"
+            fi
+            exit 1
+          fi
 
       - name: Upload LXD-built snap artifact
         uses: actions/upload-artifact@v4
