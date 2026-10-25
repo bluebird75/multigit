@@ -66,7 +66,7 @@ jobs:
         run: sudo snap install snapcraft --classic
 
       - name: Build snap with LXD
-        run: snapcraft pack --project-dir packaging/snap
+        run: snapcraft --project-dir packaging/snap pack
 
       - name: Upload LXD-built snap artifact
         uses: actions/upload-artifact@v4
