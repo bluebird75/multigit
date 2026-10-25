@@ -52,47 +52,6 @@ jobs:
         run: |
           mypy .
 
-  snap-linux:
-    if: github.ref == 'refs/heads/snap-packaging'
-    runs-on: ubuntu-24.04
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install snap prerequisites
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y snapd
-          for attempt in 1 2 3; do
-            if sudo snap install core22 --channel=latest/stable; then
-              break
-            fi
-            if [ "$attempt" -eq 3 ]; then
-              exit 1
-            fi
-            echo "Retrying core22 installation (attempt $((attempt + 1)) of 3)..."
-            sleep $((attempt * 10))
-          done
-          sudo snap install snapcraft --classic
-
-      - name: Build snap package in devmode
-        run: |
-          cd packaging/snap
-          if ! snapcraft pack --destructive-mode; then
-            log_file=$(ls -t ~/.local/state/snapcraft/log/snapcraft-*.log 2>/dev/null | head -n 1)
-            if [ -n "$log_file" ]; then
-              echo "Snapcraft log: $log_file"
-              tail -n 100 "$log_file"
-            fi
-            exit 1
-          fi
-
-      - name: Upload snap artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: multigit-snap-dev
-          path: packaging/snap/*.snap
-
   snap-linux-lxd:
     if: github.ref == 'refs/heads/snap-packaging'
     runs-on: ubuntu-24.04
