@@ -63,6 +63,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y snapd
+          for attempt in 1 2 3; do
+            if sudo snap install core22 --channel=latest/stable; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+            echo "Retrying core22 installation (attempt $((attempt + 1)) of 3)..."
+            sleep $((attempt * 10))
+          done
           sudo snap install snapcraft --classic
 
       - name: Build snap package in devmode
@@ -81,4 +91,26 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: multigit-snap-dev
+          path: packaging/snap/*.snap
+
+  snap-linux-lxd:
+    if: github.ref == 'refs/heads/snap-packaging'
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up LXD
+        uses: canonical/setup-lxd@v1
+
+      - name: Install Snapcraft
+        run: sudo snap install snapcraft --classic
+
+      - name: Build snap with LXD
+        run: snapcraft pack --project-dir packaging/snap
+
+      - name: Upload LXD-built snap artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: multigit-snap-lxd
           path: packaging/snap/*.snap
